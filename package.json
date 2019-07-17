@@ -2,9 +2,11 @@
   "name": "City-Explorer-Back-End",
   "version": "1.0.0",
   "description": "Coding from scratch",
-  "main": "index.js",
+  "main": "server.js",
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

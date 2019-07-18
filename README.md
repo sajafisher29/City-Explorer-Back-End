@@ -48,3 +48,49 @@ https://meyerweb.com/eric/tools/css/reset/ CSS Reset Tool
 
 ## License
 MIT © Code Fellows
+
+Number and name of feature: Feature 1: Data Formatting
+
+Estimate of time needed to complete: 45 mins
+
+Start time: 930AM
+
+Finish time: 1030AM
+
+Actual time needed to complete: 1 hour
+
+--
+
+Number and name of feature: Feature 2: Locations
+
+Estimate of time needed to complete: 45 mins
+
+Start time: 1030AM
+
+Finish time: 12PM
+
+Actual time needed to complete: 1.5 hours
+
+--
+
+Number and name of feature: Feature 3: Weather
+
+Estimate of time needed to complete: 45 mins
+
+Start time: 12PM
+
+Finish time: 1PM
+
+Actual time needed to complete: 1 hour
+
+--
+
+Number and name of feature: Feature 4: Eventbrite
+
+Estimate of time needed to complete: 45 mins
+
+Start time: 6PM
+
+Finish time: 7PM
+
+Actual time needed to complete: 1 hour

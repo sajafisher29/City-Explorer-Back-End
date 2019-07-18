@@ -16,6 +16,7 @@ app.use(cors());
 //API routes
 app.get('/location', locationIdentify);
 app.get('/weather', weatherIdentify);
+app.get('/events', eventsIdentify);
 
 //Constructor functions
 function Location(query, res) {
@@ -30,12 +31,12 @@ function Weather(day) {
   this.time = new Date(day.time * 1000).toDateString();
 }
 
-// function Event(place) {
-//   this.link = place.url;
-//   this.name = place.name.text;
-//   this.event_date = new Date(place.start.local).toDateString();
-//   this.summary = place.summary;
-// }
+function Event(place) {
+  this.link = place.url;
+  this.name = place.name.text;
+  this.event_date = new Date(place.start.local).toDateString();
+  this.summary = place.summary;
+}
 
 // function Movie() {
 //   this.title
@@ -48,7 +49,7 @@ function Weather(day) {
 // }
 
 //Helper functions
-function locationIdentify(req, res) { 
+function locationIdentify(req, res) {
   const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
 
   let location;
@@ -78,6 +79,21 @@ function weatherIdentify(req, res) {
     })
 }
 
+function eventsIdentify(req, res) {
+  const eventsUrl = `https://www.eventbriteapi.com/v3/events/search?location.longitude=${req.query.data.longitude}&location.latitude=${req.query.data.latitude}&token=${process.env.EVENTS_API_KEY}`
+
+  return superagent.get(eventsUrl)
+    .then (data => {
+      const eventsNearby = [];
+      for (let i = 0; i < 10; i++) {
+        eventsNearby.push(new Event(data.body.events[i]));
+      }
+      res.send(eventsNearby);
+    })
+    .catch (err => {
+      res.send(err);
+    })
+}
 
 
 //Make sure the server is listening for requests

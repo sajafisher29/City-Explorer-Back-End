@@ -80,7 +80,7 @@ function weatherIdentify(req, res) {
 }
 
 function eventsIdentify(req, res) {
-  const eventsUrl = `https://www.eventbriteapi.com/v3/events/search/${req.data}/${process.env.EVENTS_API_KEY}`
+  const eventsUrl = `https://www.eventbriteapi.com/v3/events/search?location.longitude=${req.query.data.longitude}&location.latitude=${req.query.data.latitude}&token=${process.env.EVENTS_API_KEY}`
 
   return superagent.get(eventsUrl)
     .then (data => {

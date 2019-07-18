@@ -49,7 +49,7 @@ function Event(place) {
 // }
 
 //Helper functions
-function locationIdentify(req, res) { 
+function locationIdentify(req, res) {
   const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.data}&key=${process.env.GEOCODE_API_KEY}`
 
   let location;
@@ -84,10 +84,11 @@ function eventsIdentify(req, res) {
 
   return superagent.get(eventsUrl)
     .then (data => {
-      const eventEntries = data.events.map(event => {
-        return new Event(event);
-      })
-      res.send(eventEntries);
+      const eventsNearby = [];
+      for (let i = 0; i < 10; i++) {
+        eventsNearby.push(new Event(data.body.events[i]));
+      }
+      res.send(eventsNearby);
     })
     .catch (err => {
       res.send(err);

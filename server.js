@@ -16,6 +16,7 @@ app.use(cors());
 //API routes
 app.get('/location', locationIdentify);
 app.get('/weather', weatherIdentify);
+app.get('/events', eventsIdentify);
 
 //Constructor functions
 function Location(query, res) {
@@ -30,12 +31,12 @@ function Weather(day) {
   this.time = new Date(day.time * 1000).toDateString();
 }
 
-// function Event(place) {
-//   this.link = place.url;
-//   this.name = place.name.text;
-//   this.event_date = new Date(place.start.local).toDateString();
-//   this.summary = place.summary;
-// }
+function Event(place) {
+  this.link = place.url;
+  this.name = place.name.text;
+  this.event_date = new Date(place.start.local).toDateString();
+  this.summary = place.summary;
+}
 
 // function Movie() {
 //   this.title
@@ -78,6 +79,20 @@ function weatherIdentify(req, res) {
     })
 }
 
+function eventsIdentify(req, res) {
+  const eventsUrl = `https://www.eventbriteapi.com/v3/events/search/${req.data}/${process.env.EVENTS_API_KEY}`
+
+  return superagent.get(eventsUrl)
+    .then (data => {
+      const eventEntries = data.events.map(event => {
+        return new Event(event);
+      })
+      res.send(eventEntries);
+    })
+    .catch (err => {
+      res.send(err);
+    })
+}
 
 
 //Make sure the server is listening for requests
